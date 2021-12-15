@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="箭头函数的 this 指向 箭头函数没有 this，所以需要 通过查找作用链来确定 this 的值 箭头函数没有自己的 arguments 对象 不能通过 new 关键字调用  ps: this 指向是在函数执行的时候确定 JS 模块化发展历程 自执行函数 AMD 使用 requirejs 来编写模块化（依赖必须提前声明好） CMD 使用 seajs 编写模块化，动态依赖引入文件 CommonJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题目+答案汇总">
+<meta property="og:url" content="https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="FE情报局">
+<meta property="og:description" content="箭头函数的 this 指向 箭头函数没有 this，所以需要 通过查找作用链来确定 this 的值 箭头函数没有自己的 arguments 对象 不能通过 new 关键字调用  ps: this 指向是在函数执行的时候确定 JS 模块化发展历程 自执行函数 AMD 使用 requirejs 来编写模块化（依赖必须提前声明好） CMD 使用 seajs 编写模块化，动态依赖引入文件 CommonJS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-7-14/1626266600270-98b86f3719894fafb334cedc6555079a_tplv-k3u1fbpfcp-zoom-1.image">
+<meta property="article:published_time" content="2021-07-14T02:22:21.000Z">
+<meta property="article:modified_time" content="2021-11-22T07:33:52.315Z">
+<meta property="article:author" content="臭臭">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-7-14/1626266600270-98b86f3719894fafb334cedc6555079a_tplv-k3u1fbpfcp-zoom-1.image">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>面试题目+答案汇总</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="FE情报局" type="application/atom+xml" />
+    
+    
+    <script data-ad-client="ca-pub-8728866690202045" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/07/mac%E7%94%B5%E8%84%91%E9%87%8D%E8%A3%85%E6%89%80%E9%9C%80%E8%BD%AF%E4%BB%B6%E4%B8%80%E8%A7%88/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&text=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&is_video=false&description=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=面试题目+答案汇总&body=Check out this article: https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&name=面试题目+答案汇总&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&t=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数的-this-指向"><span class="toc-number">1.</span> <span class="toc-text">箭头函数的 this 指向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-模块化"><span class="toc-number">2.</span> <span class="toc-text">JS 模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#发展历程"><span class="toc-number">2.1.</span> <span class="toc-text">发展历程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AMD-和-CMD-的区别"><span class="toc-number">2.2.</span> <span class="toc-text">AMD 和 CMD 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS-规范"><span class="toc-number">2.3.</span> <span class="toc-text">CommonJS 规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6-modules-特点"><span class="toc-number">2.4.</span> <span class="toc-text">ES6 modules 特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS-和-ES6-modules-的区别"><span class="toc-number">2.5.</span> <span class="toc-text">CommonJS 和 ES6 modules 的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#addEventListener-的第三个参数是什么"><span class="toc-number">3.</span> <span class="toc-text">addEventListener 的第三个参数是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包"><span class="toc-number">4.</span> <span class="toc-text">闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">4.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存泄漏"><span class="toc-number">4.2.</span> <span class="toc-text">内存泄漏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventLoop"><span class="toc-number">5.</span> <span class="toc-text">EventLoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#执行过程"><span class="toc-number">5.1.</span> <span class="toc-text">执行过程</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        面试题目+答案汇总
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">臭臭</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-07-14T02:22:21.000Z" itemprop="datePublished">2021-07-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="箭头函数的-this-指向"><a href="#箭头函数的-this-指向" class="headerlink" title="箭头函数的 this 指向"></a>箭头函数的 this 指向</h2><ol>
+<li>箭头函数没有 this，所以需要 通过查找作用链来确定 this 的值</li>
+<li>箭头函数没有自己的 arguments 对象</li>
+<li>不能通过 new 关键字调用</li>
+</ol>
+<p>ps: this 指向是在函数执行的时候确定</p>
+<h2 id="JS-模块化"><a href="#JS-模块化" class="headerlink" title="JS 模块化"></a>JS 模块化</h2><h3 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a>发展历程</h3><ul>
+<li>自执行函数</li>
+<li>AMD 使用 requirejs 来编写模块化（依赖必须提前声明好）</li>
+<li>CMD 使用 seajs 编写模块化，动态依赖引入文件</li>
+<li>CommonJS nodejs 中自带模块化</li>
+<li>UMD 兼容 AMD CommonJS 语法</li>
+<li>webpack 代码分割</li>
+<li>ES Modules 标签增加 type=’module’</li>
+</ul>
+<p><img src="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-7-14/1626266600270-98b86f3719894fafb334cedc6555079a_tplv-k3u1fbpfcp-zoom-1.image" alt="模块化历程"></p>
+<h3 id="AMD-和-CMD-的区别"><a href="#AMD-和-CMD-的区别" class="headerlink" title="AMD 和 CMD 的区别"></a>AMD 和 CMD 的区别</h3><p>对依赖模块的执行时机处理不同</p>
+<ul>
+<li>AMD 依赖前置，定义模块的时候就要声明依赖模块</li>
+<li>CMD 就近依赖，用到了之后才去 require</li>
+</ul>
+<h3 id="CommonJS-规范"><a href="#CommonJS-规范" class="headerlink" title="CommonJS 规范"></a>CommonJS 规范</h3><ol>
+<li>所有代码都运行在模块的作用域，不会污染全局</li>
+<li>模块同步加载，引入的模块加载完成才会进行后续操作</li>
+<li>模块有缓存</li>
+<li>输出的是值的拷贝</li>
+</ol>
+<h3 id="ES6-modules-特点"><a href="#ES6-modules-特点" class="headerlink" title="ES6 modules 特点"></a>ES6 modules 特点</h3><ol>
+<li>输入的变量不可重新赋值，可读引用，可以改写属性</li>
+<li>export 和 import 处于模块顶层</li>
+<li>babel 会把 export/import 转换成 exports/require 的形式</li>
+</ol>
+<h3 id="CommonJS-和-ES6-modules-的区别"><a href="#CommonJS-和-ES6-modules-的区别" class="headerlink" title="CommonJS 和 ES6 modules 的区别"></a>CommonJS 和 ES6 modules 的区别</h3><ol>
+<li>CommonJS 运行时加载，ES6Modules 是编译时加载</li>
+<li>CommonJS 输出值的拷贝，ES6Modules 输出值的引用</li>
+<li>前者导入模块是一个表达式，后者导入只能是字符串</li>
+<li>前者 this 指向当前模块，后者 this 指向 undefined</li>
+<li>ES6Modules 中没有 arguments、require、module、exports、_filename、_dirname 这些顶层变量</li>
+</ol>
+<h2 id="addEventListener-的第三个参数是什么"><a href="#addEventListener-的第三个参数是什么" class="headerlink" title="addEventListener 的第三个参数是什么"></a>addEventListener 的第三个参数是什么</h2><ul>
+<li>当为 boolean 时，true 为捕获，false 为冒泡</li>
+<li>当为 Object 时：capture，布尔值，捕获阶段传播到该 dom 时触发。once，布尔值，是否只调用一次，passive，布尔表示 listener 永远不会调用 preventDefault</li>
+</ul>
+<p>冒泡：从下层到上层传递 捕获：从上层到下层传递</p>
+<p>创建自定义事件 new Event，customEvent，document.createEvent&amp;initEvent，触发 dispatchEvent</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ol>
+<li>可以访问函数中变量</li>
+<li>可以使变量长期保存在内存中</li>
+</ol>
+<h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><ol>
+<li>循环引用</li>
+<li>自动类型装箱转换</li>
+<li>某些 dom 操作</li>
+<li>闭包</li>
+</ol>
+<p>程序中提示内存不足不是内存泄漏，一般是无限递归函数调用导致栈内存溢出</p>
+<p>内存泄漏一般指的是堆内存泄漏，栈区不会泄漏</p>
+<p>基本数据类型保存在栈内存，但是闭包中的数据类型存储在堆内存。引用数据类型实体存储在堆内存，栈中存储了指针</p>
+<h2 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h2><h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><ol>
+<li>整个 script 作为一个宏任务进行执行</li>
+<li>同步代码直接执行，宏任务进入宏任务队列，微任务进入微任务队列</li>
+<li>当前宏任务执行完成之后，检测微任务列表，有则进行微任务执行，直到微任务列表全部执行完毕</li>
+<li>执行浏览器的 UI 线程渲染工作</li>
+<li>检查是否有 web worker 任务，有则执行</li>
+<li>执行完本轮宏任务，回到第二步，依次循环，直到宏任务和微任务队列都为空</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数的-this-指向"><span class="toc-number">1.</span> <span class="toc-text">箭头函数的 this 指向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-模块化"><span class="toc-number">2.</span> <span class="toc-text">JS 模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#发展历程"><span class="toc-number">2.1.</span> <span class="toc-text">发展历程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AMD-和-CMD-的区别"><span class="toc-number">2.2.</span> <span class="toc-text">AMD 和 CMD 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS-规范"><span class="toc-number">2.3.</span> <span class="toc-text">CommonJS 规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6-modules-特点"><span class="toc-number">2.4.</span> <span class="toc-text">ES6 modules 特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS-和-ES6-modules-的区别"><span class="toc-number">2.5.</span> <span class="toc-text">CommonJS 和 ES6 modules 的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#addEventListener-的第三个参数是什么"><span class="toc-number">3.</span> <span class="toc-text">addEventListener 的第三个参数是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包"><span class="toc-number">4.</span> <span class="toc-text">闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">4.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存泄漏"><span class="toc-number">4.2.</span> <span class="toc-text">内存泄漏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventLoop"><span class="toc-number">5.</span> <span class="toc-text">EventLoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#执行过程"><span class="toc-number">5.1.</span> <span class="toc-text">执行过程</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&text=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&is_video=false&description=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=面试题目+答案汇总&body=Check out this article: https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&title=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&name=面试题目+答案汇总&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/&t=面试题目+答案汇总" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;   2016-2021
+    <!-- 臭臭 -->
+    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17071618号-1</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="/"
+            >首页</a
+          >
+        </li>
+        
+        <li>
+          <a href="/archives/"
+            >归档</a
+          >
+        </li>
+        
+        <li>
+          <a href="/tags/"
+            >标签</a
+          >
+        </li>
+        
+        <li>
+          <a href="/categories/"
+            >分类</a
+          >
+        </li>
+        
+        <li>
+          <a href="/about/"
+            >关于</a
+          >
+        </li>
+        
+        <li>
+          <a href="/search/"
+            >搜索</a
+          >
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

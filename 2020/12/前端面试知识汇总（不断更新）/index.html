@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="HTML预加载，懒加载，dns 预解析CSSflex 部分flex 属性设置之后，float、clear、vertical-align 失效，主轴交叉轴  flex-direction row row-reverse column column-reverse 主轴方向  flex-wrap nowrap wrap wrap-reverse 是否换行  flex-flow flex-directi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试知识汇总（不断更新）">
+<meta property="og:url" content="https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/index.html">
+<meta property="og:site_name" content="FE情报局">
+<meta property="og:description" content="HTML预加载，懒加载，dns 预解析CSSflex 部分flex 属性设置之后，float、clear、vertical-align 失效，主轴交叉轴  flex-direction row row-reverse column column-reverse 主轴方向  flex-wrap nowrap wrap wrap-reverse 是否换行  flex-flow flex-directi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-1-28/1611806852815-prototype.webp">
+<meta property="article:published_time" content="2020-12-30T11:44:32.000Z">
+<meta property="article:modified_time" content="2021-11-22T07:33:52.311Z">
+<meta property="article:author" content="臭臭">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-1-28/1611806852815-prototype.webp">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>前端面试知识汇总（不断更新）</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="FE情报局" type="application/atom+xml" />
+    
+    
+    <script data-ad-client="ca-pub-8728866690202045" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/12/%E6%9C%AA%E6%9D%A5cookie%E8%8E%B7%E5%8F%96%E5%92%8C%E6%9B%B4%E6%96%B0%E5%86%8D%E4%B8%8D%E7%94%A8%E8%87%AA%E5%B7%B1%E5%8E%BB%E5%B0%81%E8%A3%85%E4%BA%86%EF%BC%81/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/12/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&text=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&is_video=false&description=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=前端面试知识汇总（不断更新）&body=Check out this article: https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&name=前端面试知识汇总（不断更新）&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&t=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML"><span class="toc-number">1.</span> <span class="toc-text">HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预加载，懒加载，dns-预解析"><span class="toc-number">1.1.</span> <span class="toc-text">预加载，懒加载，dns 预解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-number">2.</span> <span class="toc-text">CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-部分"><span class="toc-number">2.1.</span> <span class="toc-text">flex 部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFC"><span class="toc-number">2.2.</span> <span class="toc-text">BFC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-模块化"><span class="toc-number">2.3.</span> <span class="toc-text">CSS 模块化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS"><span class="toc-number">3.</span> <span class="toc-text">JS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue"><span class="toc-number">4.</span> <span class="toc-text">Vue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React"><span class="toc-number">5.</span> <span class="toc-text">React</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小程序"><span class="toc-number">6.</span> <span class="toc-text">小程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TS-相关"><span class="toc-number">7.</span> <span class="toc-text">TS 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack"><span class="toc-number">8.</span> <span class="toc-text">webpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器相关"><span class="toc-number">9.</span> <span class="toc-text">浏览器相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-相关"><span class="toc-number">10.</span> <span class="toc-text">http 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机基础"><span class="toc-number">11.</span> <span class="toc-text">计算机基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">12.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写代码"><span class="toc-number">13.</span> <span class="toc-text">手写代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微前端"><span class="toc-number">14.</span> <span class="toc-text">微前端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人相关"><span class="toc-number">15.</span> <span class="toc-text">个人相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关代码"><span class="toc-number">16.</span> <span class="toc-text">相关代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#微任务宏任务"><span class="toc-number">16.1.</span> <span class="toc-text">微任务宏任务</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        前端面试知识汇总（不断更新）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">臭臭</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-12-30T11:44:32.000Z" itemprop="datePublished">2020-12-30</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><h3 id="预加载，懒加载，dns-预解析"><a href="#预加载，懒加载，dns-预解析" class="headerlink" title="预加载，懒加载，dns 预解析"></a>预加载，懒加载，dns 预解析</h3><h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="flex-部分"><a href="#flex-部分" class="headerlink" title="flex 部分"></a>flex 部分</h3><p>flex 属性设置之后，float、clear、vertical-align 失效，主轴交叉轴</p>
+<ul>
+<li><p>flex-direction row row-reverse column column-reverse 主轴方向</p>
+</li>
+<li><p>flex-wrap nowrap wrap wrap-reverse 是否换行</p>
+</li>
+<li><p>flex-flow flex-direction 和 flex-wrap 两种的简写</p>
+</li>
+<li><p>justify-content 主轴的对齐方式 flex-start flex-end center space-between space-around</p>
+</li>
+<li><p>align-items 交叉轴对齐方式 flex-start flex-end center baseline（项目的第一行文字的基线对齐） stretch（未设置高度占满容器，默认值）</p>
+</li>
+<li><p>align-content 多根轴线的对齐方式</p>
+</li>
+<li><p>order item 排列顺序，数值小靠前，默认 0</p>
+</li>
+<li><p>flex-grow item 的放大比例，默认为 0</p>
+</li>
+<li><p>flex-shrink item 缩小比例，默认 1，如果为 0，空间不足不变化</p>
+</li>
+<li><p>flex-basis item 占据的主轴空间，默认 auto，可以设置 px 大小</p>
+</li>
+<li><p>flex 是 flex-grow flex-shrink flex-basis 的简写，快捷值 auto（1 1 auto）none (0 0 auto)</p>
+</li>
+<li><p>align-self 修改 item 的对其方式</p>
+</li>
+</ul>
+<h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h3><p>块级格式化上下文（不管内部怎么变化都不会表现在外部），可创建的情形（根元素 html，float 不是 none，position 为 absolute 或 fixed，display 的 inline-block、table、flow-root、flex 和 grid 的直接子元素，overflow 不为 visible，contain 为 layout 等，）</p>
+<p>外边距合并问题，可清除浮动，BFC 可包含浮动元素，左右两栏自适应布局（左侧元素浮动，右侧触发 BFC）</p>
+<h3 id="CSS-模块化"><a href="#CSS-模块化" class="headerlink" title="CSS 模块化"></a>CSS 模块化</h3><ul>
+<li>使用 js 或者 json 来写样式</li>
+<li>webapck 的模块化方式</li>
+<li>css modules，作用域</li>
+</ul>
+<ol start="4">
+<li>双飞翼和圣杯布局区别以及共同点</li>
+<li>1px 问题，rem，em，px</li>
+<li>一个 div 块宽度不固定高度是宽度的一半</li>
+<li>多个 img 并排会有间隙，怎么处理间隙问题 font-size:0</li>
+</ol>
+<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><ol>
+<li>js 基本</li>
+<li>函数柯理化</li>
+<li>promise 有哪些属性，如 promise.all 等，then 的参数有几个，对应类型，为什么 pending 时，要将其放进 setTimeout 中</li>
+<li>微任务，宏任务，eventLoop 原理</li>
+<li>实现一个 LazyMan</li>
+<li>Cordova 与 H5 交互原理</li>
+<li>promise，generator，async/await 有什么区别</li>
+<li>防抖截流</li>
+<li>实现 bind，call，apply</li>
+<li>forEach，for…in…，for…of…的区别</li>
+<li>script 标签的 defer 和 async 属性</li>
+<li>require 和 import 有什么区别</li>
+<li>日期的 api 有哪些，array 的 api 有哪些</li>
+<li>jsonp 的原理</li>
+<li>跨域相关，jsonp 的 script 的回调是什么格式</li>
+<li>数组扁平化，去重</li>
+<li>原型链<br><img src="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-1-28/1611806852815-prototype.webp" alt="原型链"></li>
+<li>深浅拷贝，如何处理循环引用</li>
+<li>this 指向</li>
+<li>箭头函数和普通函数的区别？写法原型 this 可以 new 么？</li>
+<li>变量提升，let const，函数提升优先于变量提升</li>
+<li>手写一个发布订阅模式</li>
+</ol>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><ol>
+<li>vue 双向绑定原理（watcher 是在什么时候执行的）</li>
+<li>Vue 中是如何检测数组变化</li>
+<li>nextTick 实现原理，为什么他可以拿到 dom</li>
+<li>虚拟 dom，以及 dom-diff</li>
+<li>vue-router 原理（不用 hash 模式服务端如何配置）</li>
+<li>vue3 做了哪些优化</li>
+<li>vue-key</li>
+<li>父子组件生命周期的关系</li>
+<li>data 为什么用 return</li>
+<li>vuex 核心概念，如何实现每个组件实例都有 Store</li>
+<li>vue 动态组件</li>
+<li>服务端渲染</li>
+<li>数组如何监控</li>
+<li>keep-alive 缓存的是整个组件么</li>
+<li>为什么 Vue3.0 要重写响应式系统</li>
+<li>路由守卫是如何触发的，hash 路由，history 路由如何监听路由改变</li>
+<li><code>$on、$emit</code>的实现</li>
+<li>页面权限问题，路由权限</li>
+<li>v-model 的实现</li>
+<li>如何实现按需加载</li>
+</ol>
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><ol>
+<li>React 原理以及相关</li>
+</ol>
+<h2 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h2><ol>
+<li>小程序的底层实现原理</li>
+</ol>
+<h2 id="TS-相关"><a href="#TS-相关" class="headerlink" title="TS 相关"></a>TS 相关</h2><h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><ol>
+<li>webpack 打包如何优化</li>
+<li>webpack 配置项都有哪些</li>
+<li>其中 loader 和 plugin 有什么区别，两者差异</li>
+<li>有没有看过或者写过 webpack 的插件</li>
+<li>webpack 如何处理循环应用，作用域相关</li>
+</ol>
+<h2 id="浏览器相关"><a href="#浏览器相关" class="headerlink" title="浏览器相关"></a>浏览器相关</h2><ol>
+<li>强缓存和协商缓存&amp;四级缓存</li>
+<li>输入 url 到展示 dom</li>
+<li>内容安全策略 cps</li>
+<li>两个不同域的页面如何进行信息传递</li>
+<li>如何判断 webp 可用</li>
+<li>cookie 有哪些属性，分别表示什么</li>
+<li>content-type 的类型</li>
+<li>https</li>
+<li>TCP 三次握手四次挥手</li>
+<li>XSS、CSRF、中间人攻击</li>
+<li>浏览器缓存–cookies、sessionStorage、localStorage、indexedDB</li>
+</ol>
+<h2 id="http-相关"><a href="#http-相关" class="headerlink" title="http 相关"></a>http 相关</h2><ol>
+<li>https 加密流程，http 缓存</li>
+<li>301 和 302 区别</li>
+<li>http1，1.0，2.0</li>
+<li>同时发起</li>
+<li>spdy 协议</li>
+<li>dns 缓存，查找顺序</li>
+<li>多路复用，header 压缩</li>
+</ol>
+<h2 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h2><ol>
+<li>线程和进程的区别</li>
+<li>观察者模式与发布订阅者模式区别</li>
+<li>七层网络，https 运行在哪一层</li>
+<li>大量数据的 table 怎么处理</li>
+</ol>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ol>
+<li>生成随机数组，洗牌算法</li>
+<li>切割千分位</li>
+<li>找出非降序数列的个数输入：[“cba”, “daf”, “ghi”]输出：1</li>
+<li>找出绝对值最小的数字</li>
+<li>一个正整数的所有质因数</li>
+<li>js 实现链表</li>
+<li>洗牌算法</li>
+<li>爬楼梯，两数之和</li>
+<li>给出一系列版本号，将版本号排序，用数组排序</li>
+<li>链表的环？两个链表找出第一个相交的元素</li>
+<li>数组展平：reduce，去重 set，升序排序算法等</li>
+<li>括号配对</li>
+<li>[-2000, …., +2000]的数组，找出所有和为 8 的一组数的位置</li>
+<li>使用正则去掉字符的尾空格</li>
+<li>排序算法以及其时间复杂度</li>
+<li>设计模式哪些</li>
+<li>二叉树的遍历</li>
+<li>实现一个最大长度的无重复子串的返回，注意不是最大长度，是子串本身</li>
+</ol>
+<h2 id="手写代码"><a href="#手写代码" class="headerlink" title="手写代码"></a>手写代码</h2><ol>
+<li>实现 add(1)(2)(3)</li>
+<li>手写函数柯里化</li>
+<li>promise 手写</li>
+</ol>
+<h2 id="微前端"><a href="#微前端" class="headerlink" title="微前端"></a>微前端</h2><ol>
+<li>qiankun 的原理，如何做到主应用和子应用彼此隔离</li>
+</ol>
+<h2 id="个人相关"><a href="#个人相关" class="headerlink" title="个人相关"></a>个人相关</h2><ol>
+<li>未来发展规划</li>
+</ol>
+<h2 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h2><h3 id="微任务宏任务"><a href="#微任务宏任务" class="headerlink" title="微任务宏任务"></a>微任务宏任务</h3><p>打印顺序</p>
+<pre><code class="javascript">async function async1() {
+  console.log(&quot;a&quot;);
+  await async2();
+  console.log(&quot;b&quot;);
+}
+
+async function async2() {
+  console.log(&quot;c&quot;);
+}
+
+console.log(&quot;d&quot;);
+
+setTimeout(function () {
+  console.log(&quot;e&quot;);
+}, 0);
+
+async1();
+
+new Promise(function (resolve) {
+  console.log(&quot;f&quot;);
+  resolve();
+}).then(function () {
+  console.log(&quot;g&quot;);
+});
+
+console.log(&quot;h&quot;);
+</code></pre>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML"><span class="toc-number">1.</span> <span class="toc-text">HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#预加载，懒加载，dns-预解析"><span class="toc-number">1.1.</span> <span class="toc-text">预加载，懒加载，dns 预解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-number">2.</span> <span class="toc-text">CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-部分"><span class="toc-number">2.1.</span> <span class="toc-text">flex 部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFC"><span class="toc-number">2.2.</span> <span class="toc-text">BFC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-模块化"><span class="toc-number">2.3.</span> <span class="toc-text">CSS 模块化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS"><span class="toc-number">3.</span> <span class="toc-text">JS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue"><span class="toc-number">4.</span> <span class="toc-text">Vue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React"><span class="toc-number">5.</span> <span class="toc-text">React</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小程序"><span class="toc-number">6.</span> <span class="toc-text">小程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TS-相关"><span class="toc-number">7.</span> <span class="toc-text">TS 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack"><span class="toc-number">8.</span> <span class="toc-text">webpack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器相关"><span class="toc-number">9.</span> <span class="toc-text">浏览器相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-相关"><span class="toc-number">10.</span> <span class="toc-text">http 相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机基础"><span class="toc-number">11.</span> <span class="toc-text">计算机基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">12.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写代码"><span class="toc-number">13.</span> <span class="toc-text">手写代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微前端"><span class="toc-number">14.</span> <span class="toc-text">微前端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人相关"><span class="toc-number">15.</span> <span class="toc-text">个人相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关代码"><span class="toc-number">16.</span> <span class="toc-text">相关代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#微任务宏任务"><span class="toc-number">16.1.</span> <span class="toc-text">微任务宏任务</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&text=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&is_video=false&description=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=前端面试知识汇总（不断更新）&body=Check out this article: https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&title=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&name=前端面试知识汇总（不断更新）&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2020/12/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB%EF%BC%88%E4%B8%8D%E6%96%AD%E6%9B%B4%E6%96%B0%EF%BC%89/&t=前端面试知识汇总（不断更新）" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;   2016-2021
+    <!-- 臭臭 -->
+    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17071618号-1</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="/"
+            >首页</a
+          >
+        </li>
+        
+        <li>
+          <a href="/archives/"
+            >归档</a
+          >
+        </li>
+        
+        <li>
+          <a href="/tags/"
+            >标签</a
+          >
+        </li>
+        
+        <li>
+          <a href="/categories/"
+            >分类</a
+          >
+        </li>
+        
+        <li>
+          <a href="/about/"
+            >关于</a
+          >
+        </li>
+        
+        <li>
+          <a href="/search/"
+            >搜索</a
+          >
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

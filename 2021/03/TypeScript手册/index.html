@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="基础在调用之前就应该确保你的所调用的方法是存在的 tsc TypeScript编译器，也就是类型检查器，使用npm i -g typescript进行安装，然后编写你对应ts文件，使用tsc file.ts进行编译你的ts文件。如果ts文件写的不规范，tsc则会在命令行上出现错误。使用tsc –noEmitOnError file.ts对错误进行防御 tsc –target es2015 file">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript手册">
+<meta property="og:url" content="https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:site_name" content="FE情报局">
+<meta property="og:description" content="基础在调用之前就应该确保你的所调用的方法是存在的 tsc TypeScript编译器，也就是类型检查器，使用npm i -g typescript进行安装，然后编写你对应ts文件，使用tsc file.ts进行编译你的ts文件。如果ts文件写的不规范，tsc则会在命令行上出现错误。使用tsc –noEmitOnError file.ts对错误进行防御 tsc –target es2015 file">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-06T08:57:18.000Z">
+<meta property="article:modified_time" content="2021-11-22T07:33:52.313Z">
+<meta property="article:author" content="臭臭">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>TypeScript手册</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="FE情报局" type="application/atom+xml" />
+    
+    
+    <script data-ad-client="ca-pub-8728866690202045" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/03/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/02/%E5%AD%A6%E4%BC%9A%E7%AE%A1%E7%90%86%EF%BC%8C%E6%88%90%E4%B8%BA%E4%BC%9A%E5%B8%A6%E5%9B%A2%E9%98%9F%E7%9A%84%E6%8A%80%E6%9C%AF%E4%BA%BA/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&text=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&is_video=false&description=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript手册&body=Check out this article: https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&name=TypeScript手册&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&t=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础"><span class="toc-number">1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日常类型"><span class="toc-number">2.</span> <span class="toc-text">日常类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联合类型"><span class="toc-number">2.1.</span> <span class="toc-text">联合类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型别名"><span class="toc-number">2.2.</span> <span class="toc-text">类型别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型断言"><span class="toc-number">2.3.</span> <span class="toc-text">类型断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文字类型"><span class="toc-number">2.4.</span> <span class="toc-text">文字类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字面推论"><span class="toc-number">2.5.</span> <span class="toc-text">字面推论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null和undefined"><span class="toc-number">2.6.</span> <span class="toc-text">null和undefined</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非空断言运算符（-）"><span class="toc-number">2.7.</span> <span class="toc-text">非空断言运算符（!）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举"><span class="toc-number">2.8.</span> <span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不常见的基元"><span class="toc-number">2.9.</span> <span class="toc-text">不常见的基元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Narrowing"><span class="toc-number">3.</span> <span class="toc-text">Narrowing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型谓词"><span class="toc-number">3.1.</span> <span class="toc-text">类型谓词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#never类型"><span class="toc-number">3.2.</span> <span class="toc-text">never类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数更多相关信息"><span class="toc-number">4.</span> <span class="toc-text">函数更多相关信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数类型表达式"><span class="toc-number">4.1.</span> <span class="toc-text">函数类型表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造签名"><span class="toc-number">4.2.</span> <span class="toc-text">构造签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#泛型函数"><span class="toc-number">4.3.</span> <span class="toc-text">泛型函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可选参数"><span class="toc-number">4.4.</span> <span class="toc-text">可选参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数重载"><span class="toc-number">4.5.</span> <span class="toc-text">函数重载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它类型"><span class="toc-number">4.6.</span> <span class="toc-text">其它类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象类型"><span class="toc-number">5.</span> <span class="toc-text">对象类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性修饰符"><span class="toc-number">5.1.</span> <span class="toc-text">属性修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展类型"><span class="toc-number">5.2.</span> <span class="toc-text">扩展类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交叉点类型"><span class="toc-number">5.3.</span> <span class="toc-text">交叉点类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通用对象类型"><span class="toc-number">5.4.</span> <span class="toc-text">通用对象类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#元组类型"><span class="toc-number">5.5.</span> <span class="toc-text">元组类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Keyof类型运算符"><span class="toc-number">6.</span> <span class="toc-text">Keyof类型运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#class"><span class="toc-number">7.</span> <span class="toc-text">class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#module"><span class="toc-number">8.</span> <span class="toc-text">module</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        TypeScript手册
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">臭臭</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-03-06T08:57:18.000Z" itemprop="datePublished">2021-03-06</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B-%E7%AC%94%E8%AE%B0-TypeScript/">教程 笔记 TypeScript</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/TypeScript/" rel="tag">TypeScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>在调用之前就应该确保你的所调用的方法是存在的</p>
+<p>tsc TypeScript编译器，也就是类型检查器，使用npm i -g typescript进行安装，然后编写你对应ts文件，使用tsc file.ts进行编译你的ts文件。如果ts文件写的不规范，tsc则会在命令行上出现错误。使用tsc –noEmitOnError file.ts对错误进行防御</p>
+<p>tsc –target es2015 file.ts可以将输出的代码转成为相应的指定版本的js。noImplicitAny，隐藏类型不推断any，strictNullChecks标志操作null和undefined更加明确</p>
+<h2 id="日常类型"><a href="#日常类型" class="headerlink" title="日常类型"></a>日常类型</h2><p>string、number、boolean是我们平常用的比较多的内置类型，大写的String、Number、Boolean是一些特殊的内置类型将，虽然是合法的，但是大写的很少出现在自己的代码中，始终对类型使用小写的字符</p>
+<p>数组，可以用<code>number[]</code>，<code>string[]</code>，还有一种<code>Array&lt;number&gt;</code>，表示相同的意思，这个是用泛型进行的对应数组说明。<code>T&lt;U&gt;</code></p>
+<p>TS还有一个特殊的类型any，可以在不希望特定值引起任何类型检查错误的时候使用它，上下文类型，ts会自动判断当前所用的一些类型是从哪里来</p>
+<pre><code class="TypeScript">let arr = [&#39;text1&#39;, &#39;text2&#39;]
+arr.forEach(item =&gt; {
+    console.log(item.toUpperCase())
+})
+// 如果调用的不是string的方法则会报错
+
+function fn(arg: {x: number; y: number; z?: number}){ // 分割可以用,或者;
+    console.log(arg.x + arg.y)
+}
+</code></pre>
+<p>可选属性在属性名后面加一个？，如上面的z属性就是可选属性，对于可选属性来说，你必须先对其进行一个非undefined的判断然后再使用它</p>
+<h3 id="联合类型"><a href="#联合类型" class="headerlink" title="联合类型"></a>联合类型</h3><p>可以直接调用他们共有的属性，否则就得使用条件进行对应的判断</p>
+<pre><code class="TypeScript">const strAndNum: string | number = 1;
+</code></pre>
+<h3 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h3><p>这两个之间可以自由选择，但是还是有一些对应的区别</p>
+<pre><code class="TypeScript">type Point = {
+    x: number;
+    y: number;
+}
+interface Point = {
+    x: number;
+    y: number;
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">interface</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">扩展类型通过&amp;</td>
+<td align="left">扩展类型通过extends</td>
+</tr>
+<tr>
+<td align="left">向现有见面增加字段</td>
+<td align="left">创建后无法改变类型</td>
+</tr>
+<tr>
+<td align="left">不参与声明合并 ｜ 可以声明合并 ｜</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">可以命名基元 ｜ 只能用于声明对象的形状，不能重命名基元 ｜</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h3><p>如果你要使用document.getElementById()，ts仅知道其返回对应的HTMLElement，但是你知道你页面会一直存在对应的element，此时你就可以使用类型断言</p>
+<pre><code class="TypeScript">// 可以使用类型断言来指定具体的类型
+const myCanvas = document.getElementById(&quot;main_canvas&quot;) as HTMLCanvasElement;
+// 其中在tsx中你可以这样写
+const myCanvas = &lt;HTMLCanvasElement&gt;document.getElementById(&quot;main_canvas&quot;);
+
+// 当然你还可以这样
+const x = &quot;hello&quot; as unknown as number;
+const a = (expr as any) as T;
+</code></pre>
+<h3 id="文字类型"><a href="#文字类型" class="headerlink" title="文字类型"></a>文字类型</h3><pre><code class="TypeScript">// 可以使用文字类型来接受一组你想要的值
+function printText(s: string, align: &#39;left&#39; | &#39;right&#39; | &#39;center&#39;){}
+printText(&#39;hi&#39;, &#39;center&#39;)
+</code></pre>
+<p>数值类型类似，当然其可以与其它类型相互结合使用</p>
+<h3 id="字面推论"><a href="#字面推论" class="headerlink" title="字面推论"></a>字面推论</h3><pre><code class="TypeScript">const req = { url: &quot;https://example.com&quot;, method: &quot;GET&quot; };
+handleRequest(req.url, req.method);
+// 如果说handleRequest第二个参数只接受GET或者POST那么上述代码是有问题的，因为req自动推断出method为字符串，但是handleRequest第二个参数只能是GET字符或者POST字符，则这样推断有问题，那么如何解决这个问题呢？
+// 1
+const req = { url: &quot;https://example.com&quot;, method: &quot;GET&quot; as &quot;GET&quot; };
+// 2
+handleRequest(req.url, req.method as &quot;GET&quot;);
+// 3 可以使用as const，将req变成文字类型
+const req = { url: &quot;https://example.com&quot;, method: &quot;GET&quot; } as const;
+</code></pre>
+<h3 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h3><p>表示缺少或者未初始化的值，strictNullChecks建议开启，用来确保在调用某些方法之前测试这些值的存在</p>
+<pre><code class="TypeScript">function doSomething(x: string | undefined) {
+  if (x === undefined) {
+    // do nothing
+  } else {
+    console.log(&quot;Hello, &quot; + x.toUpperCase());
+  }
+}
+</code></pre>
+<h3 id="非空断言运算符（-）"><a href="#非空断言运算符（-）" class="headerlink" title="非空断言运算符（!）"></a>非空断言运算符（!）</h3><p>用于从类型中删除null和undefined不进行任何显式检查，实际上是一个类型断言，表明该值不是null或者undefined</p>
+<pre><code class="TypeScript">function liveDangerously(x?: number | undefined) {
+  // No error
+  console.log(x!.toFixed());
+}
+</code></pre>
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>之后进行一个对应的填充</p>
+<h3 id="不常见的基元"><a href="#不常见的基元" class="headerlink" title="不常见的基元"></a>不常见的基元</h3><p>bigint symbol</p>
+<h2 id="Narrowing"><a href="#Narrowing" class="headerlink" title="Narrowing"></a>Narrowing</h2><p>在TS中，我们需要检验当前传进来的数据的各种情况，才能够缩小类型以便TS能够正常的解析。检查一些值的操作用到最多的就是typeof，但是一定要注意typeof null返回的是’object’字符，以下实例就是一个很好的说明</p>
+<p>TS会自动缩小特定分支范围</p>
+<pre><code class="TypeScript">function printAll(strs: string | string[] | null) {
+  if (typeof strs === &quot;object&quot;) {
+    for (const s of strs) {
+      // Object is possibly &#39;null&#39;.
+      console.log(s);
+    }
+  } else if (typeof strs === &quot;string&quot;) {
+    console.log(strs);
+  } else {
+    // do nothing
+  }
+}
+</code></pre>
+<p>当然上述代码可以通过strs &amp;&amp; typeof strs === ‘object’来确定，也可以提前通过if来判断strs是否存在</p>
+<pre><code class="TypeScript">interface Container {
+  value: number | null | undefined;
+}
+
+function multiplyValue(container: Container, factor: number) {
+  // Remove both &#39;null&#39; and &#39;undefined&#39; from the type. 所以其不会报错
+  if (container.value != null) {
+    console.log(container.value);
+//                        ^ = (property) Container.value: number
+
+    // Now we can safely multiply &#39;container.value&#39;.
+    container.value *= factor;
+  }
+}
+</code></pre>
+<h3 id="类型谓词"><a href="#类型谓词" class="headerlink" title="类型谓词"></a>类型谓词</h3><pre><code class="TypeScript">function isFish(pet: Fish | Bird): pet is Fish{
+  return (pet as Fish).swim !== undefined
+}
+const zoo: (Fish | Bird)[] = [getSmallPet(), getSmallPet(), getSmallPet()];
+const underWater1: Fish[] = zoo.filter(isFish);
+// or, equivalently
+const underWater2: Fish[] = zoo.filter(isFish) as Fish[];
+
+// The predicate may need repeating for more complex examples
+const underWater3: Fish[] = zoo.filter((pet): pet is Fish =&gt; {
+  if (pet.name === &quot;sharkey&quot;) return false;
+  return isFish(pet);
+});
+</code></pre>
+<p>pet is Fish相当于我们手动指定了当前的类型</p>
+<h3 id="never类型"><a href="#never类型" class="headerlink" title="never类型"></a>never类型</h3><p>在缩小范围的过程中，可以将并集缩小到所有可能性一无所有的程度，这种情况下，将使用never类型来表示不应该存在的状态</p>
+<p>never类型可以分配给每种类型，但是，没有类型可以分配给never类型（自身除外）。</p>
+<h2 id="函数更多相关信息"><a href="#函数更多相关信息" class="headerlink" title="函数更多相关信息"></a>函数更多相关信息</h2><h3 id="函数类型表达式"><a href="#函数类型表达式" class="headerlink" title="函数类型表达式"></a>函数类型表达式</h3><pre><code class="TypeScript">function greeter(fn: (a: string) =&gt; void){
+  // 也可以用类型别名来命名函数类型
+  // type GreetFunction = (a: string) =&gt; void
+  fn(&#39;hello&#39;)
+}
+
+function printToConsole(s: string) {
+  console.log(s)
+}
+
+greeter(printToConsole)
+</code></pre>
+<p>函数除了可以调用意外还具有属性，如何声明一个具有属性的函数？</p>
+<pre><code class="TypeScript">type DescribableFunction = {
+  description: string;
+  (someArg: number): boolean;
+}
+function doSomeThing(fn: DescribableFunction) {
+  console.log(fn.description + &#39;required&#39; + fn(6))
+}
+</code></pre>
+<h3 id="构造签名"><a href="#构造签名" class="headerlink" title="构造签名"></a>构造签名</h3><p>构造函数的声明方式</p>
+<pre><code class="TypeScript">type SomeConstructor = {
+  new (s: string): SomeObject;
+}
+function fn(ctor: SomeConstructor) {
+  return new ctor(&#39;hello&#39;)
+}
+
+// 可以任意组合相同类型的调用签名和构造签名
+interface CallOrConstruct {
+  new (s: string): Date;
+  (n?: number): number;
+}
+</code></pre>
+<h3 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h3><p>如果我们要描述两个值对应之间的关系的时候，要使用泛型，TS可以自动推断出一些类型</p>
+<pre><code class="TypeScript">function firstElement&lt;Type&gt;(arr: Type[]): Type {
+  return arr[0]
+}
+// 指定参数类型
+function combine&lt;Type&gt;(arr1: Type[], arr2: Type[]): Type[] {
+  return arr1.concat(arr2)
+}
+// 这样写有问题
+const arr = combine([1,2], [&#39;hello&#39;])
+
+// 这样写OK
+const arr = combine&lt;string | number&gt;([1,2], [&#39;hello&#39;])
+</code></pre>
+<p>泛型都是关于将两个或者多个具有相同类型的值进行的关联，要尽可能使用类型参数本身，而不要限制它。如果类型参数仅出现在一个位置，则应当考虑我们是否实际需要它</p>
+<h3 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h3><pre><code class="TypeScript">function firstElement(arr?: string) {
+  // ....
+}
+</code></pre>
+<p>为回调编写函数类型时，切勿编写可选参数，除非你打算在不传递该参数的情况下调用该函数</p>
+<h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3><pre><code class="TypeScript">function len(s: string): number;
+function len(arr: any[]): number;
+function len(x: any) {
+  return x.length
+}
+len(&#39;&#39;) // OK
+len([0]) // OK
+len(Math.random() &gt; 0.5 ? &#39;hello&#39; : [0]) // fail 不能使用可能是字符串或数组的值来调用它
+</code></pre>
+<h3 id="其它类型"><a href="#其它类型" class="headerlink" title="其它类型"></a>其它类型</h3><ul>
+<li>this相关</li>
+<li>void表示不返值的函数的返回值，但是如果type vf = () =&gt; void这种函数类型可以返回任何值，但是它将被忽略</li>
+<li>object表示不是原始值的任何值，不同于空对象类型，极有可能永远也用不上</li>
+<li>unknown表示任何值，与any类似，但是更安全，unknown做任何事情都是不合法的，可以描述一个返回值未知类型的函数</li>
+<li>never某些函数从不返回值，比如一些error的函数，确定没有任何东西的时候也会出现</li>
+<li>Function，所有函数的值相等，可以用() =&gt; void代替</li>
+<li>剩余参数，<code>...m: number[]</code></li>
+<li>注意TS一般认为数组是可变的，所以在用扩展运算符给一个函数传递参数的时候会发生意想不到的效果，使用as const表达数组的不可变性</li>
+<li>解构参数类型<code>function ({a, b, c}: {a: number; b: number; c: number}){}</code></li>
+</ul>
+<h2 id="对象类型"><a href="#对象类型" class="headerlink" title="对象类型"></a>对象类型</h2><p>上述我们可知道定义对象属性可通过type以及interface关键字对对象进行描述</p>
+<h3 id="属性修饰符"><a href="#属性修饰符" class="headerlink" title="属性修饰符"></a>属性修饰符</h3><ul>
+<li>可选属性可以在对象属性key值后面添加?表示可选，可以给未指定的值设置默认值</li>
+<li>readonly只读</li>
+</ul>
+<pre><code class="TypeScript">interface PaintOptions {
+  shape: Shape;
+  xPos?: number;
+  yPos?: number;
+}
+function paintShape({ shape, xPos = 0, yPos = 0 }: PaintOptions)
+</code></pre>
+<h3 id="扩展类型"><a href="#扩展类型" class="headerlink" title="扩展类型"></a>扩展类型</h3><p>关键字extends可以使我们可以有效的复制其他命名类型的成员，并添加我们所需要的任何新的成员，并且extends可以从多种类型进行扩展<code>interface ColorfulCircle extends Colorful, Circle {}</code></p>
+<h3 id="交叉点类型"><a href="#交叉点类型" class="headerlink" title="交叉点类型"></a>交叉点类型</h3><p>关键字&amp;，用于结合现有的对象类型<code>type ColorfulCircle = Colorful &amp; Circle;</code>，ColorfulCircle表示其具有Colorful和Circle的所有成员</p>
+<h3 id="通用对象类型"><a href="#通用对象类型" class="headerlink" title="通用对象类型"></a>通用对象类型</h3><p>使用泛型来声明一个type参数</p>
+<pre><code class="TypeScript">interface Box&lt;Type&gt; {
+  contents: Type;
+}
+type Box&lt;Type&gt; = {
+  contents: Type
+}
+
+type OrNull&lt;Type&gt; = Type | null;
+
+type OneOrMany&lt;Type&gt; = Type | Type[];
+
+type OneOrManyOrNull&lt;Type&gt; = OrNull&lt;OneOrMany&lt;Type&gt;&gt;;
+//   ^ = type OneOrManyOrNull&lt;Type&gt; = OneOrMany&lt;Type&gt; | null
+
+type OneOrManyOrNullStrings = OneOrManyOrNull&lt;string&gt;;
+//   ^ = type OneOrManyOrNullStrings = OneOrMany&lt;string&gt; | null
+
+function getProperty&lt;Type, Key extends keyof Type&gt;(obj: Type, key: Key) {
+  return obj[key];
+}
+</code></pre>
+<p>ReadonlyArray是一种特殊类型，描述不应该被改变的数组，也可以简写<code>readyonly string[]</code></p>
+<h3 id="元组类型"><a href="#元组类型" class="headerlink" title="元组类型"></a>元组类型</h3><pre><code class="TypeScript">type StringNumberPair = [string, number, number?]
+type StringNumberBooleans = [string, number, ...boolean[]];
+type StringBooleansNumber = [string, ...boolean[], number];
+type BooleansStringNumber = [...boolean[], string, number];
+</code></pre>
+<h2 id="Keyof类型运算符"><a href="#Keyof类型运算符" class="headerlink" title="Keyof类型运算符"></a>Keyof类型运算符</h2><p>作用于对象</p>
+<pre><code class="TypeScript">type Mapish = { [k: string]: boolean };
+type M = keyof Mapish;
+//   ^ = type M = string | number
+</code></pre>
+<p>对象的key值始终被强制转换成字符串，因此<code>obj[0]</code>与<code>obj[&#39;0&#39;]</code>始终相同</p>
+<p>ts中也有一个typeof关键字，作用就是找到当前一些内容的ts类型</p>
+<h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础"><span class="toc-number">1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日常类型"><span class="toc-number">2.</span> <span class="toc-text">日常类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联合类型"><span class="toc-number">2.1.</span> <span class="toc-text">联合类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型别名"><span class="toc-number">2.2.</span> <span class="toc-text">类型别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型断言"><span class="toc-number">2.3.</span> <span class="toc-text">类型断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文字类型"><span class="toc-number">2.4.</span> <span class="toc-text">文字类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字面推论"><span class="toc-number">2.5.</span> <span class="toc-text">字面推论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null和undefined"><span class="toc-number">2.6.</span> <span class="toc-text">null和undefined</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非空断言运算符（-）"><span class="toc-number">2.7.</span> <span class="toc-text">非空断言运算符（!）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举"><span class="toc-number">2.8.</span> <span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不常见的基元"><span class="toc-number">2.9.</span> <span class="toc-text">不常见的基元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Narrowing"><span class="toc-number">3.</span> <span class="toc-text">Narrowing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型谓词"><span class="toc-number">3.1.</span> <span class="toc-text">类型谓词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#never类型"><span class="toc-number">3.2.</span> <span class="toc-text">never类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数更多相关信息"><span class="toc-number">4.</span> <span class="toc-text">函数更多相关信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数类型表达式"><span class="toc-number">4.1.</span> <span class="toc-text">函数类型表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造签名"><span class="toc-number">4.2.</span> <span class="toc-text">构造签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#泛型函数"><span class="toc-number">4.3.</span> <span class="toc-text">泛型函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可选参数"><span class="toc-number">4.4.</span> <span class="toc-text">可选参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数重载"><span class="toc-number">4.5.</span> <span class="toc-text">函数重载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它类型"><span class="toc-number">4.6.</span> <span class="toc-text">其它类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象类型"><span class="toc-number">5.</span> <span class="toc-text">对象类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#属性修饰符"><span class="toc-number">5.1.</span> <span class="toc-text">属性修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展类型"><span class="toc-number">5.2.</span> <span class="toc-text">扩展类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交叉点类型"><span class="toc-number">5.3.</span> <span class="toc-text">交叉点类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通用对象类型"><span class="toc-number">5.4.</span> <span class="toc-text">通用对象类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#元组类型"><span class="toc-number">5.5.</span> <span class="toc-text">元组类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Keyof类型运算符"><span class="toc-number">6.</span> <span class="toc-text">Keyof类型运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#class"><span class="toc-number">7.</span> <span class="toc-text">class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#module"><span class="toc-number">8.</span> <span class="toc-text">module</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&text=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&is_video=false&description=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TypeScript手册&body=Check out this article: https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&title=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&name=TypeScript手册&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/03/TypeScript%E6%89%8B%E5%86%8C/&t=TypeScript手册" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;   2016-2021
+    <!-- 臭臭 -->
+    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17071618号-1</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="/"
+            >首页</a
+          >
+        </li>
+        
+        <li>
+          <a href="/archives/"
+            >归档</a
+          >
+        </li>
+        
+        <li>
+          <a href="/tags/"
+            >标签</a
+          >
+        </li>
+        
+        <li>
+          <a href="/categories/"
+            >分类</a
+          >
+        </li>
+        
+        <li>
+          <a href="/about/"
+            >关于</a
+          >
+        </li>
+        
+        <li>
+          <a href="/search/"
+            >搜索</a
+          >
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

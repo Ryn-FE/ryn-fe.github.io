@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="手写 call&#x2F;&#x2F; func.call(this, a, b) Object.prototype._call &#x3D; function(context, ...params){     if(typeof this !&#x3D;&#x3D; &#39;function&#39;){         throw TypeError(&#39;type is fail&#39;)     }     let that &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手写常规代码总结">
+<meta property="og:url" content="https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="FE情报局">
+<meta property="og:description" content="手写 call&#x2F;&#x2F; func.call(this, a, b) Object.prototype._call &#x3D; function(context, ...params){     if(typeof this !&#x3D;&#x3D; &#39;function&#39;){         throw TypeError(&#39;type is fail&#39;)     }     let that &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-24T12:50:37.000Z">
+<meta property="article:modified_time" content="2021-11-22T07:33:52.314Z">
+<meta property="article:author" content="臭臭">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>手写常规代码总结</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="FE情报局" type="application/atom+xml" />
+    
+    
+    <script data-ad-client="ca-pub-8728866690202045" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/06/%E5%85%A8%E6%A0%88%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/04/electron%E7%9B%B8%E5%85%B3%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&text=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&is_video=false&description=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=手写常规代码总结&body=Check out this article: https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&name=手写常规代码总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&t=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-call"><span class="toc-number">1.</span> <span class="toc-text">手写 call</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-apply"><span class="toc-number">2.</span> <span class="toc-text">手写 apply</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-bind"><span class="toc-number">3.</span> <span class="toc-text">手写 bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-instanceof"><span class="toc-number">4.</span> <span class="toc-text">手写 instanceof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-create"><span class="toc-number">5.</span> <span class="toc-text">Object.create</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#promise"><span class="toc-number">6.</span> <span class="toc-text">promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new-模拟"><span class="toc-number">7.</span> <span class="toc-text">new 模拟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深拷贝"><span class="toc-number">8.</span> <span class="toc-text">深拷贝</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        手写常规代码总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">臭臭</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-24T12:50:37.000Z" itemprop="datePublished">2021-05-24</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="手写-call"><a href="#手写-call" class="headerlink" title="手写 call"></a>手写 call</h2><pre><code class="JavaScript">// func.call(this, a, b)
+Object.prototype._call = function(context, ...params){
+    if(typeof this !== &#39;function&#39;){
+        throw TypeError(&#39;type is fail&#39;)
+    }
+    let that = context || window
+    let symbol = Symbol(&#39;func&#39;)
+    that[symbol] = this
+    let result = that[symbol](...params)
+    delete that[symbol]
+    return result
+}
+</code></pre>
+<h2 id="手写-apply"><a href="#手写-apply" class="headerlink" title="手写 apply"></a>手写 apply</h2><pre><code class="JavaScript">// func.apply(this, [a, b])
+Object.prototype._apply = function(context, params = []){
+    if(typeof this !== &#39;function&#39;){
+        throw TypeError(&#39;type is fail&#39;)
+    }
+    let that = context || window
+    let symbol = Symbol(&#39;func&#39;)
+    that[symbol] = this
+    let result = that[symbol](...params)
+    delete that[symbol]
+    return result
+}
+</code></pre>
+<h2 id="手写-bind"><a href="#手写-bind" class="headerlink" title="手写 bind"></a>手写 bind</h2><pre><code class="JavaScript">// func.bind(this, a, b)
+Object.prototype._bind = function(context, ...params1){
+    if(typeof this !== &#39;function&#39;){
+        throw TypeError(&#39;type is fail&#39;)
+    }
+    let that = context || window
+    return (...params2) =&gt; {
+        this.call(that, ...params1,)
+    }
+}
+</code></pre>
+<h2 id="手写-instanceof"><a href="#手写-instanceof" class="headerlink" title="手写 instanceof"></a>手写 instanceof</h2><pre><code class="JavaScript">function instanceof(L, R){
+    let l = L._proto_
+    let r = R.prototype
+    while(true){
+        if(l === null) return false
+        if(l === r) return true
+        l = l._proto_
+    }
+}
+</code></pre>
+<h2 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h2><pre><code class="JavaScript">function create(obj) {
+    function F() {}
+    F.prototype = obj
+    return new F()
+}
+</code></pre>
+<h2 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h2><pre><code class="JavaScript">class Promise {
+  constructor(executor) {
+    ...
+    // 初始化
+    ...
+   this.onFulfilledCbs = []; // 成功回调函数队列
+   this.onRejectedCbs = []; // 失败回调函数队列
+    ...
+  }
+
+  resolve(val) {
+    if (this.status === PENDING) {
+      ...
+      // 一旦状态改变，遍历函数队列将终值作为形参触发队列中的函数
+     this.onFulfilledCbs.forEach(fn =&gt; fn(this.value));
+    }
+  }
+
+  reject(err) {
+    if (this.status === PENDING) {
+      ...
+     this.onRejectedCbs.forEach(fn =&gt; fn(this.reason));
+    }
+  }
+
+  then(onFulfilled, onRejected) {
+    ...
+    // 当状态处于pending时
+   if (this.status === PENDING) {
+     // 向函数队列添加微任务回调函数
+     this.onFulfilledCbs.push(value =&gt; {
+       setTimeout(() =&gt; {
+         try {
+           onFulfilled(value)
+         } catch (e) { reject(e) }
+       })
+     });
+
+     this.onRejectedCbs.push((reason) =&gt; {
+       setTimeout(() =&gt; {
+         try {
+           onRejected(reason)
+         } catch (e) { reject(e) }
+       })
+     });
+   }
+  }
+}
+</code></pre>
+<p>promise.all 以及 promise.race 两方面可以 forEach，如果是 all 的情况，values 看是否达到了数组，race 则直接 resove 外围的 promise</p>
+<h2 id="new-模拟"><a href="#new-模拟" class="headerlink" title="new 模拟"></a>new 模拟</h2><pre><code class="JavaScript">function newOperator(ctor) {
+    if (typeof ctor !== &#39;function&#39;){
+        throw &#39;newOperator function the first param must be a function&#39;;
+    }
+
+    var args = Array.prototype.slice.call(arguments, 1);
+    // 1.创建一个空的简单JavaScript对象（即{}）
+    var obj = {};
+    // 2.链接该新创建的对象（即设置该对象的__proto__）到该函数的原型对象prototype上
+    obj.__proto__ = ctor.prototype;
+    // 3.将步骤1新创建的对象作为this的上下文
+    var result = ctor.apply(obj, args);
+    // 4.如果该函数没有返回对象，则返回新创建的对象
+
+    var isObject = typeof result === &#39;object&#39; &amp;&amp; result !== null;
+    var isFunction = typeof result === &#39;function&#39;;
+    return isObject || isFunction ? result : obj;
+}
+</code></pre>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-call"><span class="toc-number">1.</span> <span class="toc-text">手写 call</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-apply"><span class="toc-number">2.</span> <span class="toc-text">手写 apply</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-bind"><span class="toc-number">3.</span> <span class="toc-text">手写 bind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手写-instanceof"><span class="toc-number">4.</span> <span class="toc-text">手写 instanceof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-create"><span class="toc-number">5.</span> <span class="toc-text">Object.create</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#promise"><span class="toc-number">6.</span> <span class="toc-text">promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new-模拟"><span class="toc-number">7.</span> <span class="toc-text">new 模拟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深拷贝"><span class="toc-number">8.</span> <span class="toc-text">深拷贝</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&text=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&is_video=false&description=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=手写常规代码总结&body=Check out this article: https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&title=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&name=手写常规代码总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/05/%E6%89%8B%E5%86%99%E5%B8%B8%E8%A7%84%E4%BB%A3%E7%A0%81%E6%80%BB%E7%BB%93/&t=手写常规代码总结" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;   2016-2021
+    <!-- 臭臭 -->
+    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17071618号-1</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+        <li>
+          <a href="/"
+            >首页</a
+          >
+        </li>
+        
+        <li>
+          <a href="/archives/"
+            >归档</a
+          >
+        </li>
+        
+        <li>
+          <a href="/tags/"
+            >标签</a
+          >
+        </li>
+        
+        <li>
+          <a href="/categories/"
+            >分类</a
+          >
+        </li>
+        
+        <li>
+          <a href="/about/"
+            >关于</a
+          >
+        </li>
+        
+        <li>
+          <a href="/search/"
+            >搜索</a
+          >
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
