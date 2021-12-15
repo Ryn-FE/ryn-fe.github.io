@@ -9,7 +9,7 @@
     <meta name="description" content="vite 为什么出现在很久以前，浏览器上是没有 ESM 的，缺少对于模块化的支持，从页面中引入 js 的方案一般都是通过 script 进行加载，后来出现了比如 requirejs，commonjs 等相关的方案，之后随着技术的不断进步，我们又出现了 bundle 的方案进行一些模块化的引入，通过 webpack，rollup 等工具的 plugins 进行模块化打包。当然随着我们的项目的日益壮大">
 <meta property="og:type" content="article">
 <meta property="og:title" content="下一代web工具-vite">
-<meta property="og:url" content="https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/index.html">
+<meta property="og:url" content="https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/index.html">
 <meta property="og:site_name" content="FE情报局">
 <meta property="og:description" content="vite 为什么出现在很久以前，浏览器上是没有 ESM 的，缺少对于模块化的支持，从页面中引入 js 的方案一般都是通过 script 进行加载，后来出现了比如 requirejs，commonjs 等相关的方案，之后随着技术的不断进步，我们又出现了 bundle 的方案进行一些模块化的引入，通过 webpack，rollup 等工具的 plugins 进行模块化打包。当然随着我们的项目的日益壮大">
 <meta property="og:locale" content="zh_CN">
@@ -28,17 +28,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/hexo-blog-page/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/hexo-blog-page/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog-page/images/apple-touch-icon.png">
         
       
     
@@ -46,18 +46,18 @@
     <title>下一代web工具-vite</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/hexo-blog-page/css/style.css">
 
     <!-- persian styles -->
     
       
-<link rel="stylesheet" href="/css/rtl.css">
+<link rel="stylesheet" href="/hexo-blog-page/css/rtl.css">
 
     
     <!-- rss -->
     
     
-      <link rel="alternate" href="/true" title="FE情报局" type="application/atom+xml" />
+      <link rel="alternate" href="/hexo-blog-page/true" title="FE情报局" type="application/atom+xml" />
     
     
     <script data-ad-client="ca-pub-8728866690202045" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -74,17 +74,17 @@
     <span id="nav">
       <ul>
          
-          <li><a href="/">首页</a></li>
+          <li><a href="/hexo-blog-page/">首页</a></li>
          
-          <li><a href="/archives/">归档</a></li>
+          <li><a href="/hexo-blog-page/archives/">归档</a></li>
          
-          <li><a href="/tags/">标签</a></li>
+          <li><a href="/hexo-blog-page/tags/">标签</a></li>
          
-          <li><a href="/categories/">分类</a></li>
+          <li><a href="/hexo-blog-page/categories/">分类</a></li>
          
-          <li><a href="/about/">关于</a></li>
+          <li><a href="/hexo-blog-page/about/">关于</a></li>
          
-          <li><a href="/search/">搜索</a></li>
+          <li><a href="/hexo-blog-page/search/">搜索</a></li>
         
       </ul>
     </span>
@@ -93,7 +93,7 @@
       <ul>
         
         
-        <li><a class="icon" href="/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/hexo-blog-page/2021/07/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E7%AD%94%E6%A1%88%E6%B1%87%E6%80%BB/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -106,17 +106,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=下一代web工具-vite&body=Check out this article: https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=下一代web工具-vite&body=Check out this article: https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -154,14 +154,14 @@
       
     <div class="article-category">
         <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/vite/">vite</a>
+        <a class="category-link" href="/hexo-blog-page/categories/vite/">vite</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/vite/" rel="tag">vite</a>
+        <a class="tag-link" href="/hexo-blog-page/tags/vite/" rel="tag">vite</a>
     </div>
 
 
@@ -268,17 +268,17 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/">首页</a></li>
+          <li><a href="/hexo-blog-page/">首页</a></li>
          
-          <li><a href="/archives/">归档</a></li>
+          <li><a href="/hexo-blog-page/archives/">归档</a></li>
          
-          <li><a href="/tags/">标签</a></li>
+          <li><a href="/hexo-blog-page/tags/">标签</a></li>
          
-          <li><a href="/categories/">分类</a></li>
+          <li><a href="/hexo-blog-page/categories/">分类</a></li>
          
-          <li><a href="/about/">关于</a></li>
+          <li><a href="/hexo-blog-page/about/">关于</a></li>
          
-          <li><a href="/search/">搜索</a></li>
+          <li><a href="/hexo-blog-page/search/">搜索</a></li>
         
       </ul>
     </div>
@@ -289,17 +289,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=下一代web工具-vite&body=Check out this article: https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://renyanan.com/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=下一代web工具-vite&body=Check out this article: https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -326,37 +326,37 @@
       <ul>
         
         <li>
-          <a href="/"
+          <a href="/hexo-blog-page/"
             >首页</a
           >
         </li>
         
         <li>
-          <a href="/archives/"
+          <a href="/hexo-blog-page/archives/"
             >归档</a
           >
         </li>
         
         <li>
-          <a href="/tags/"
+          <a href="/hexo-blog-page/tags/"
             >标签</a
           >
         </li>
         
         <li>
-          <a href="/categories/"
+          <a href="/hexo-blog-page/categories/"
             >分类</a
           >
         </li>
         
         <li>
-          <a href="/about/"
+          <a href="/hexo-blog-page/about/"
             >关于</a
           >
         </li>
         
         <li>
-          <a href="/search/"
+          <a href="/hexo-blog-page/search/"
             >搜索</a
           >
         </li>
@@ -369,23 +369,23 @@
     </div>
     <!-- styles -->
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/hexo-blog-page/lib/font-awesome/css/all.min.css">
 
 
-<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+<link rel="stylesheet" href="/hexo-blog-page/lib/justified-gallery/css/justifiedGallery.min.css">
 
 
     <!-- jquery -->
 
-<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/hexo-blog-page/lib/jquery/jquery.min.js"></script>
 
 
-<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/hexo-blog-page/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
 
 <!-- clipboard -->
 
   
-<script src="/lib/clipboard/clipboard.min.js"></script>
+<script src="/hexo-blog-page/lib/clipboard/clipboard.min.js"></script>
 
   <script type="text/javascript">
   $(function() {
@@ -408,7 +408,7 @@
   </script>
 
 
-<script src="/js/main.js"></script>
+<script src="/hexo-blog-page/js/main.js"></script>
 
 <!-- search -->
 
