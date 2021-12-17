@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="vite 为什么出现在很久以前，浏览器上是没有 ESM 的，缺少对于模块化的支持，从页面中引入 js 的方案一般都是通过 script 进行加载，后来出现了比如 requirejs，commonjs 等相关的方案，之后随着技术的不断进步，我们又出现了 bundle 的方案进行一些模块化的引入，通过 webpack，rollup 等工具的 plugins 进行模块化打包。当然随着我们的项目的日益壮大">
 <meta property="og:type" content="article">
-<meta property="og:title" content="下一代web工具-vite">
+<meta property="og:title" content="下一代web工具-vite实践">
 <meta property="og:url" content="https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/index.html">
 <meta property="og:site_name" content="FE情报局">
 <meta property="og:description" content="vite 为什么出现在很久以前，浏览器上是没有 ESM 的，缺少对于模块化的支持，从页面中引入 js 的方案一般都是通过 script 进行加载，后来出现了比如 requirejs，commonjs 等相关的方案，之后随着技术的不断进步，我们又出现了 bundle 的方案进行一些模块化的引入，通过 webpack，rollup 等工具的 plugins 进行模块化打包。当然随着我们的项目的日益壮大">
@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-8-8/1628355736196-1628355729250.png">
 <meta property="og:image" content="https://gitee.com/RenYaNan/wx-photo/raw/master/2021-8-8/1628356351198-1628356344893.png">
 <meta property="article:published_time" content="2021-08-04T12:18:04.000Z">
-<meta property="article:modified_time" content="2021-11-22T07:33:52.316Z">
+<meta property="article:modified_time" content="2021-12-17T12:25:22.313Z">
 <meta property="article:author" content="臭臭">
 <meta property="article:tag" content="vite">
 <meta name="twitter:card" content="summary">
@@ -43,7 +43,7 @@
       
     
     <!-- title -->
-    <title>下一代web工具-vite</title>
+    <title>下一代web工具-vite实践</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/hexo-blog-page/css/style.css">
@@ -107,16 +107,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=下一代web工具-vite&body=Check out this article: https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=下一代web工具-vite实践&body=Check out this article: https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite实践&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -133,7 +133,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        下一代web工具-vite
+        下一代web工具-vite实践
     </h1>
 
 
@@ -290,16 +290,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=下一代web工具-vite&body=Check out this article: https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&text=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&is_video=false&description=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=下一代web工具-vite实践&body=Check out this article: https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&title=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&name=下一代web工具-vite实践&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://ryn-fe.github.io/hexo-blog-page/2021/08/%E4%B8%8B%E4%B8%80%E4%BB%A3web%E5%B7%A5%E5%85%B7-vite/&t=下一代web工具-vite实践" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
